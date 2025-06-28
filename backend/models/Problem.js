@@ -16,7 +16,7 @@ const ProblemSchema = new mongoose.Schema(
       required: true,
       enum: ['Easy', 'Medium', 'Difficult'], // Restrict values to these three options
       default: 'Easy', // Default difficulty
-    },
+    },    // <-- And this
     testCases: [
       {
         input: { type: String, required: true },

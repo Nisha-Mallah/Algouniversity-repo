@@ -5,7 +5,7 @@ const Problem = require('../models/Problem'); // Assuming Mongoose model
 // Create a problem
 router.post('/', async (req, res) => {
   try {
-    const { title, problemStatement, examples, testCases, constraints, difficulty } = req.body;
+    const { title, problemStatement, examples, testCases, constraints, difficulty, functionName, functionArgs } = req.body;
 
     // Validate difficulty
     if (!['Easy', 'Medium', 'Difficult'].includes(difficulty)) {
@@ -19,9 +19,10 @@ router.post('/', async (req, res) => {
     if (!Array.isArray(testCases) || testCases.length === 0) {
       return res.status(400).json({ error: 'Test cases must be a non-empty array.' });
     }
+    
 
     // Create and save new problem
-    const newProblem = new Problem({ title, problemStatement, examples, testCases, constraints, difficulty });
+    const newProblem = new Problem({ title, problemStatement, examples, testCases, constraints, difficulty});
     const savedProblem = await newProblem.save();
     res.status(201).json(savedProblem);
   } catch (error) {
@@ -55,7 +56,7 @@ router.get('/:id', async (req, res) => {
 // Update a problem
 router.put('/:id', async (req, res) => {
   try {
-    const { title, problemStatement, examples, testCases, constraints, difficulty } = req.body;
+    const { title, problemStatement, examples, testCases, constraints, difficulty, functionName, functionArgs } = req.body;
 
     // Validate difficulty if provided
     if (difficulty && !['Easy', 'Medium', 'Difficult'].includes(difficulty)) {
@@ -69,10 +70,13 @@ router.put('/:id', async (req, res) => {
     if (testCases && (!Array.isArray(testCases) || testCases.length === 0)) {
       return res.status(400).json({ error: 'Test cases must be a non-empty array.' });
     }
+    if ((functionName && typeof functionName !== 'string') || (functionArgs && (!Array.isArray(functionArgs) || functionArgs.length === 0))) {
+      return res.status(400).json({ error: 'functionName and functionArgs are required.' });
+    }
 
     const updatedProblem = await Problem.findByIdAndUpdate(
       req.params.id,
-      { title, problemStatement, examples, testCases, constraints, difficulty },
+      { title, problemStatement, examples, testCases, constraints, difficulty},
       { new: true, runValidators: true }
     );
 
