@@ -53,7 +53,7 @@ const HomePage = () => {
 
       {/* Action Cards */}
       <div className="container">
-        <div className="row g-4">
+        <div className="row g-4 justify-content-center">
           {/* Add Problems Card */}
           <div className="col-md-4">
             <div
@@ -111,37 +111,6 @@ const HomePage = () => {
                   onClick={() => handleNavigation('/problems')}
                 >
                   Problem List
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* View Profile Card */}
-          <div className="col-md-4">
-            <div
-              className="card shadow"
-              style={{
-                backgroundColor: '#32cd32', // Lime green
-                color: '#fff', // White text
-                borderRadius: '10px',
-                boxShadow: '0 4px 10px rgba(50, 205, 50, 0.6)', // Green shadow
-              }}
-            >
-              <div className="card-body text-center">
-                <h5 className="card-title">View Profile</h5>
-                <p className="card-text">View your profile information.</p>
-                <button
-                  className="btn"
-                  style={{
-                    backgroundColor: '#fffbea', // Light yellow
-                    color: '#8b0000', // Dark red text
-                    fontWeight: 'bold',
-                    border: '2px solid #8b0000',
-                    borderRadius: '8px',
-                  }}
-                  onClick={() => handleNavigation('/profile')}
-                >
-                  View Profile
                 </button>
               </div>
             </div>
